@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Tax ID - eTax</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-IDA.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo-IDA.png">
+    <link rel="shortcut icon" href="logo-IDA.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo-IDA.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="logo">
+                <img src="logo-IDA.png" alt="IDA Logo">
+            </div>
+
+            <div class="create-form">
+                <h2>Create New Tax ID</h2>
+                <p class="subtitle">Please fill in your information</p>
+
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Full Name" id="fullName">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" id="email">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" placeholder="Phone Number" id="phone">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" placeholder="National ID Number" id="nationalId">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-building"></i>
+                        <input type="text" placeholder="Business Name (Optional)" id="businessName">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Physical Address" id="address">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms">
+                        <span class="checkmark"></span>
+                        I agree to the Terms and Conditions
+                    </label>
+                </div>
+
+                <button class="login-btn" id="createBtn">
+                    <span>Create Tax ID</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <div class="links">
+                    <a href="index.html" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="create-taxid.js"></script>
+</body>
+</html> 

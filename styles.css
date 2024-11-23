@@ -41,14 +41,14 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   position: relative;
   z-index: 1;
 }
 
 .login-card {
   padding: 2rem;
-  max-width: 400px;
+  max-width: 450px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -70,7 +70,7 @@ body::before {
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -311,37 +311,126 @@ body::before {
 
 /* Custom styles for SweetAlert */
 .error-details {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 0.5rem;
-    text-align: left;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: left;
 }
 
 .error-message {
-    color: #dc2626;
-    font-family: monospace;
+  color: #dc2626;
+  font-family: monospace;
 }
 
 /* Override some SweetAlert2 default styles */
 .swal2-popup {
-    border-radius: 15px !important;
-    padding: 2rem !important;
+  border-radius: 15px !important;
+  padding: 2rem !important;
 }
 
 .swal2-title {
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
 }
 
 .swal2-html-container {
-    font-size: 1rem !important;
+  font-size: 1rem !important;
 }
 
 .swal2-confirm {
-    background-color: var(--primary-color) !important;
-    border-radius: 8px !important;
+  background-color: var(--primary-color) !important;
+  border-radius: 8px !important;
 }
 
 .swal2-cancel {
-    border-radius: 8px !important;
+  border-radius: 8px !important;
+}
+
+.forgot-password-form {
+    margin-top: 4rem;
+}
+
+.forgot-password-form h2 {
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.back-link {
+    color: var(--primary-color) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.back-link i {
+    font-size: 0.8rem;
+}
+
+/* Add these styles for the timeout error message */
+.timeout-error-footer {
+    padding: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.timeout-error-footer ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.timeout-error-footer li {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.create-form {
+    margin-top: 4rem;
+}
+
+.create-form h2 {
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox-group {
+    margin: 1rem 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Optional: Style for required fields */
+.input-field input:required {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23ff0000'/%3E%3C/svg%3E") no-repeat right 8px center;
+    padding-right: 24px;
+}
+
+/* Optional: Add some hover effect to the checkbox */
+.checkbox-container:hover {
+    color: var(--primary-color);
 }
