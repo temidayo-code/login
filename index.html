@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eTax Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h1>eTax Portal</h1>
+                <p class="subtitle">Welcome back! Please login to your account.</p>
+            </div>
+
+            <div class="login-form">
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" placeholder="Tax Payer ID" id="taxpayerId">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" id="password">
+                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                </div>
+
+                <button class="login-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="links">
+                <a href="#" class="forgot-link">Forgot Password?</a>
+                <a href="#" class="forgot-link">Forgot Tax ID?</a>
+                <a href="#" class="create-link">Create New Tax ID</a>
+            </div>
+
+            <div class="divider">
+                <span>or continue as</span>
+            </div>
+
+            <div class="action-buttons">
+                <button class="consultant-btn">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Consultant</span>
+                </button>
+                <button class="admin-btn">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Admin</span>
+                </button>
+            </div>
+
+            <button class="verify-btn">
+                <i class="fas fa-certificate"></i>
+                <span>Verify Tax Clearance Certificate</span>
+            </button>
+
+            <div class="footer-text">
+                <p>Supported browsers: <i class="fab fa-chrome"></i> <i class="fab fa-firefox"></i> <i class="fab fa-safari"></i></p>
+                <p class="copyright">© 2024 e-Tax. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
