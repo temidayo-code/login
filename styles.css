@@ -347,90 +347,249 @@ body::before {
 }
 
 .forgot-password-form {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .forgot-password-form h2 {
-    text-align: center;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
 }
 
 .back-link {
-    color: var(--primary-color) !important;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    text-decoration: none;
+  color: var(--primary-color) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
 }
 
 .back-link i {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 /* Add these styles for the timeout error message */
 .timeout-error-footer {
-    padding: 1rem;
-    margin-top: 1rem;
-    border-top: 1px solid #e5e7eb;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb;
 }
 
 .timeout-error-footer ul {
-    margin: 0;
-    padding-left: 1.5rem;
+  margin: 0;
+  padding-left: 1.5rem;
 }
 
 .timeout-error-footer li {
-    margin: 0.5rem 0;
-    color: #666;
+  margin: 0.5rem 0;
+  color: #666;
 }
 
 .create-form {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 
 .create-form h2 {
-    text-align: center;
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .checkbox-group {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .checkbox-container input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 /* Optional: Style for required fields */
 .input-field input:required {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23ff0000'/%3E%3C/svg%3E") no-repeat right 8px center;
-    padding-right: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Ccircle cx='4' cy='4' r='3' fill='%23ff0000'/%3E%3C/svg%3E")
+    no-repeat right 8px center;
+  padding-right: 24px;
 }
 
 /* Optional: Add some hover effect to the checkbox */
 .checkbox-container:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Preloader Styles */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+}
+
+.preloader-logo {
+  width: 120px;
+  height: auto;
+  animation: pulse 2s infinite;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 3px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.loading-progress {
+  width: 0%;
+  height: 100%;
+  background: #024d41;
+  border-radius: 10px;
+  animation: loading 5s ease-in-out forwards;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes loading {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 480px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login-card {
+    width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  .logo img {
+    width: 140px;
+  }
+
+  .input-field {
+    margin-bottom: 1rem;
+  }
+
+  .input-field input {
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+  }
+
+  .swal2-popup {
+    width: 90% !important;
+    font-size: 0.9rem !important;
+  }
+
+  .swal2-title {
+    font-size: 1.3rem !important;
+  }
+
+  .swal2-content {
+    font-size: 0.9rem !important;
+  }
+
+  .error-details ul {
+    padding-left: 20px !important;
+  }
+
+  .swal2-actions button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .swal2-popup {
+    padding: 1rem !important;
+  }
+
+  .swal2-title {
+    font-size: 1.1rem !important;
+  }
+
+  .swal2-content {
+    font-size: 0.9rem !important;
+  }
+
+  .error-details ul {
+    padding-left: 20px !important;
+  }
+
+  .swal2-actions button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
 }

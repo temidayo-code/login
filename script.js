@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Hide preloader after content is loaded
+  setTimeout(function () {
+    const preloader = document.querySelector(".preloader");
+    preloader.classList.add("fade-out");
+
+    // Remove preloader from DOM after fade out
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }, 5000); // Changed to 5000ms (5 seconds)
+});
+
+document.addEventListener("DOMContentLoaded", function () {
   // Password visibility toggle with animation
   const togglePassword = document.getElementById("togglePassword");
   const password = document.getElementById("password");
@@ -29,65 +42,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add loading state to login button
   const loginBtn = document.querySelector(".login-btn");
-  loginBtn.addEventListener("click", function (e) {
-    e.preventDefault();
+  loginBtn.addEventListener("click", async function () {
+    const taxpayerId = document.getElementById("taxpayerId").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    // Get input values
-    const taxPayerValue = taxpayerId.value.trim().toUpperCase();
-    const passwordValue = password.value.trim();
-
-    // Check if fields are empty
-    if (!taxPayerValue || !passwordValue) {
+    if (!taxpayerId || !password) {
       Swal.fire({
-        title: "Missing Information",
-        text: "Please fill in all required fields",
-        icon: "warning",
-        confirmButtonColor: "#2563eb",
+        title: "Error",
+        text: "Please enter both Tax Payer ID and Password",
+        icon: "error",
+        confirmButtonColor: "#024d41",
       });
       return;
     }
 
-    // Validate credentials
-    if (taxPayerValue === "PENELOPE2024" && passwordValue === "Citizen") {
-      // Show success message
-      Swal.fire({
-        title: "Login Successful",
-        text: "Welcome back, IDA!",
-        icon: "success",
-        confirmButtonColor: "#2563eb",
-        timer: 1500,
+    try {
+      const loadingAlert = Swal.fire({
+        title: "Logging in",
+        text: "Please wait...",
+        icon: "info",
         showConfirmButton: false,
+        allowOutsideClick: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
       });
-    } else {
-      // Show error message
-      let errorMessage = "";
 
-      if (taxPayerValue !== "PENELOPE2024" && passwordValue !== "Citizen") {
-        errorMessage = "Invalid Tax Payer ID and Password";
-      } else if (taxPayerValue !== "PENELOPE2024") {
-        errorMessage = "Invalid Tax Payer ID";
+      // Simulate API call with timeout
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Check for the three specific formats
+      const validTaxpayerIds = ['penelope2024', 'PENELOPE2024', 'Penelope2024'];
+      if (validTaxpayerIds.includes(taxpayerId) && password === "Citizen") {
+        await Swal.fire({
+          title: "Success",
+          text: "Login successful!",
+          icon: "success",
+          confirmButtonColor: "#024d41",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        // Redirect to resume-alt.html
+        window.location.href = "resume-alt.html";
       } else {
-        errorMessage = "Invalid Password";
+        throw new Error("Invalid credentials");
       }
-
+    } catch (error) {
       Swal.fire({
-        title: "Login Failed",
-        text: errorMessage,
+        title: "Error",
+        text: "Invalid Tax Payer ID or Password",
         icon: "error",
-        footer: `<div class="error-details">
-                            <span>Error Code: AUTH_001</span><br>
-                            <span class="error-message">Please check your credentials and try again</span>
-                        </div>`,
-        confirmButtonColor: "#2563eb",
-        showCancelButton: true,
-        confirmButtonText: "Try Again",
-        cancelButtonText: "Close",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Clear the password field
-          password.value = "";
-          password.focus();
-        }
+        confirmButtonColor: "#024d41",
       });
     }
   });

@@ -1,8 +1,16 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.onkeydown = function(e) {
+    if(e.keyCode == 123) return false;
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+}
+
 document.getElementById('resetBtn').addEventListener('click', async function() {
     const email = document.getElementById('email').value.trim();
-    
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     if (!email) {
         Swal.fire({
             title: 'Error',
@@ -24,7 +32,6 @@ document.getElementById('resetBtn').addEventListener('click', async function() {
     }
 
     try {
-        // Show loading state with close button
         const loadingAlert = Swal.fire({
             title: 'Processing',
             text: 'Verifying your email address...',
@@ -37,7 +44,6 @@ document.getElementById('resetBtn').addEventListener('click', async function() {
                 Swal.showLoading();
             },
             willClose: () => {
-                // Show error message when manually closed
                 Swal.fire({
                     title: 'Process Interrupted',
                     text: 'The password reset process was cancelled. No reset email has been sent.',
@@ -61,21 +67,18 @@ document.getElementById('resetBtn').addEventListener('click', async function() {
                     if (result.dismiss === Swal.DismissReason.cancel) {
                         window.location.href = 'index.html';
                     } else if (result.isConfirmed) {
-                        // Clear the form for a new attempt
                         document.getElementById('email').value = '';
                     }
                 });
             }
         });
 
-        // Create a timeout promise
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {
                 reject(new Error('REQUEST_TIMEOUT'));
-            }, 90000); // 90 seconds
+            }, 90000);
         });
 
-        // Wait for timeout
         await timeoutPromise;
 
     } catch (error) {
@@ -103,7 +106,6 @@ document.getElementById('resetBtn').addEventListener('click', async function() {
                 if (result.dismiss === Swal.DismissReason.cancel) {
                     window.location.href = 'index.html';
                 } else if (result.isConfirmed) {
-                    // Clear the form
                     document.getElementById('email').value = '';
                 }
             });

@@ -12,12 +12,21 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="logo-IDA.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="logo-IDA.png">
-    <link rel="shortcut icon" href="logo-IDA.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="logo-IDA.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-IDA.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="logo-IDA.png" />
+    <link rel="shortcut icon" href="logo-IDA.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="logo-IDA.png" />
   </head>
   <body>
+    <div class="preloader">
+      <div class="preloader-content">
+        <img src="logo-IDA.png" alt="IDA Logo" class="preloader-logo" />
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="login-card">
         <div class="logo-container">
@@ -50,7 +59,7 @@
             >Forgot Password?</a
           >
           <a href="forgot-taxid.html" class="forgot-link">Forgot Tax ID?</a>
-          <a href="#" class="create-link">Create New Tax ID</a>
+          <a href="create-taxid.html" class="create-link">Create New Tax ID</a>
         </div>
 
         <div class="action-buttons">
@@ -74,6 +83,15 @@
         </div>
       </div>
     </div>
+    <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+    }
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
