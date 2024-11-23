@@ -54,4 +54,57 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(0)';
         });
     });
+
+    document.querySelector('.verify-btn').addEventListener('click', async function() {
+        try {
+            // Show loading state
+            const loadingAlert = Swal.fire({
+                title: 'Verifying...',
+                text: 'Please wait while we verify the certificate',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Simulate API call with timeout
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            // Simulate server error
+            throw new Error('Unable to connect to verification server');
+
+            // If successful (this won't run due to the error above)
+            await loadingAlert;
+            Swal.fire({
+                title: 'Verification Complete',
+                text: 'Tax Clearance Certificate has been verified successfully',
+                icon: 'success'
+            });
+
+        } catch (error) {
+            // Error handling
+            Swal.fire({
+                title: 'Verification Failed',
+                text: 'We encountered an error while verifying the certificate. Please try again later.',
+                icon: 'error',
+                footer: `<div class="error-details">
+                            <span>Error Code: SVR_001</span><br>
+                            <span class="error-message">${error.message}</span>
+                        </div>`,
+                confirmButtonText: 'Try Again',
+                showCancelButton: true,
+                cancelButtonText: 'Close',
+                customClass: {
+                    container: 'error-popup'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If user clicks "Try Again"
+                    this.click(); // Trigger the verification process again
+                }
+            });
+        }
+    });
 }); 

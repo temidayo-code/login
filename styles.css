@@ -308,3 +308,40 @@ body::before {
   transform: scale(1.05);
   filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15));
 }
+
+/* Custom styles for SweetAlert */
+.error-details {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.error-message {
+    color: #dc2626;
+    font-family: monospace;
+}
+
+/* Override some SweetAlert2 default styles */
+.swal2-popup {
+    border-radius: 15px !important;
+    padding: 2rem !important;
+}
+
+.swal2-title {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+}
+
+.swal2-html-container {
+    font-size: 1rem !important;
+}
+
+.swal2-confirm {
+    background-color: var(--primary-color) !important;
+    border-radius: 8px !important;
+}
+
+.swal2-cancel {
+    border-radius: 8px !important;
+}
