@@ -260,6 +260,75 @@ body::before {
     transform: translateY(-5px);
 }
 
+/* Sidebar Education */
+.sidebar-section.education .education-item {
+    margin: 1rem 0;
+    background: none !important;
+    padding: 0;
+}
+
+.sidebar-section.education .education-item span {
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+    color: var(--text-light);
+}
+
+.sidebar-section.education .education-item span:first-child {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.sidebar-section.education .education-item span:last-child {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.sidebar-section.education .education-item:hover span {
+    transform: translateX(5px);
+}
+
+/* Notice Section Styles */
+.sidebar-section.notice {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+.sidebar-section.notice h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.notice-content {
+    font-size: 0.9rem;
+}
+
+.notice-header {
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.notice-body {
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+.notice-body p {
+    margin: 0.5rem 0;
+}
+
+.notice-body .status {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
 /* Responsive Design */
 @media (max-width: 900px) {
     .resume-wrapper {
