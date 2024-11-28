@@ -597,7 +597,7 @@ section:nth-child(4) {
   cursor: help;
 }
 
-.status.pending::after {
+.status.pending.done::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 130%;
@@ -605,8 +605,8 @@ section:nth-child(4) {
   width: 300px;
   padding: 1rem;
   border-radius: 8px;
-  background: var(--text-dark); /* Same as pending background */
-  color: var(--text-light); /* Same as pending text */
+  background: var(--text-dark);
+  color: var(--text-light);
   font-size: 0.85rem;
   text-align: left;
   white-space: normal;
