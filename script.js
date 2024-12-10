@@ -171,3 +171,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Select all progress fill elements
+    const progressBars = document.querySelectorAll(".progress-fill");
+
+    // Start animation after a short delay
+    setTimeout(() => {
+        progressBars[0].style.width = "100%"; // Ensure this matches the updated HTML
+        // Other progress bars can be set here as needed
+    }, 1500);
+});

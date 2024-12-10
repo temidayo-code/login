@@ -107,16 +107,19 @@
                 <div class="action-header">
                   <span class="action-text">Minimum Payee Tax (MPT)</span>
                   <span
-                    class="status pending done"
+                    class="status success"
                     data-tooltip="To access your tax documents and have them printed, you need to complete the Minimum Payee Tax (MPT). To do so, please contact the Tax Agent for assistance."
-                    >Pending</span
+                    >Successfully</span
                   >
                 </div>
                 <div class="progress-container">
-                  <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                  <div class="progress-bar success">
+                    <div
+                      class="progress-fill success"
+                      style="width: 100%"
+                    ></div>
                   </div>
-                  <span class="progress-text">70% Complete</span>
+                  <span class="progress-text">100% Complete</span>
                 </div>
               </div>
 
@@ -126,8 +129,12 @@
                   <span class="action-text"
                     >Federal Insurance Contribution Act Tax (FICAT)</span
                   >
-                  <!-- <span class="status pending" data-tooltip="To access your tax documents and have them printed, you need to complete the Federal Insurance Contribution Act Tax (FICAT). To do so, please contact the Tax Agent for assistance.">Pending</span> -->
-                  <span class="status pending">Pending</span>
+                  <span
+                    class="status pending done"
+                    data-tooltip="We kindly request the respected Tax Profile owner to personally visit our headquarters on the 19th of this month to address matters concerning the Federal Insurance Contributions Act Tax (FICA Tax) and to resolve any pending taxes. Your prompt attention to this request is crucial to ensure compliance with all legal obligations."
+                    >Pending</span
+                  >
+                  <!-- <span class="status pending">Pending</span> -->
                 </div>
                 <div class="progress-container">
                   <div class="progress-bar">
@@ -211,7 +218,7 @@
 
         // Start animation after a short delay
         setTimeout(() => {
-          progressBars[0].style.width = "70%";
+          progressBars[0].style.width = "100%";
           progressBars[1].style.width = "30%";
           progressBars[2].style.width = "55%";
           progressBars[3].style.width = "15%";
