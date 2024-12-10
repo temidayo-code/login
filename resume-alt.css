@@ -597,6 +597,18 @@ section:nth-child(4) {
   cursor: help;
 }
 
+.status.success {
+  background: #d1e7dd;
+  color: rgb(25, 135, 84);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  position: relative;
+  cursor: help;
+}
+
 .status.pending.done::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -713,10 +725,40 @@ section:nth-child(4) {
   margin-bottom: 0.5rem;
 }
 
+.progress-bar.success {
+  width: 100%;
+  height: 12px;
+  background: #d1e7dd;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
 .progress-fill {
   width: 0;
   height: 100%;
   background: #ffc107; /* Yellow progress bar */
+  border-radius: 6px;
+  transition: width 1.5s ease-out;
+  position: relative;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.25) 25%,
+    /* Slightly more visible stripes */ transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.25) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 20px 20px;
+  animation: progress-stripes 1s linear infinite;
+}
+
+.progress-fill.success {
+  width: 0;
+  height: 100%;
+  background: #198754; 
   border-radius: 6px;
   transition: width 1.5s ease-out;
   position: relative;
