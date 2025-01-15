@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scanModal.style.display = "block";
     try {
       await startCamera("scanCamera");
-      alert("Camera started successfully");
+      // alert("Camera started successfully");
     } catch (error) {
       console.error("Camera error:", error);
     }
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // captureButton.addEventListener("click", registerImage);
 
   scanCaptureButton.addEventListener("click", () => {
-    alert("Scan capture button clicked");
+    // alert("Scan capture button clicked");
     if (!isScanning) {
       scanImage();
     }
