@@ -649,6 +649,10 @@ section:nth-child(4) {
   visibility: visible;
 }
 
+.pending.over:hover {
+  cursor: pointer;
+}
+
 /* Mobile Responsive Tooltips */
 @media screen and (max-width: 768px) {
   .status.pending::after {
@@ -758,7 +762,7 @@ section:nth-child(4) {
 .progress-fill.success {
   width: 0;
   height: 100%;
-  background: #198754; 
+  background: #198754;
   border-radius: 6px;
   transition: width 1.5s ease-out;
   position: relative;
