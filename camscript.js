@@ -40,11 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function startCamera(containerId) {
     return new Promise((resolve, reject) => {
       Webcam.set({
-        width: 320,
-        height: 240,
+        width: "100%",
+        height: "100%",
         image_format: "jpeg",
         jpeg_quality: 90,
         flip_horiz: true,
+        constraints: {
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+        },
       });
 
       try {
