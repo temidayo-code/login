@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const scanModal = document.getElementById("scanModal");
   const registerModal = document.getElementById("registerModal");
   const scanButton = document.getElementById("scanButton");
-  const registerButton = document.getElementById("registerButton");
-  const captureButton = document.getElementById("captureButton");
+  // const registerButton = document.getElementById("registerButton");
+  // const captureButton = document.getElementById("captureButton");
   const scanCaptureButton = document.getElementById("scanCaptureButton");
   const closeButtons = document.querySelectorAll(".close-btn");
   const imageCountElement = document.getElementById("imageCount");
@@ -185,22 +185,25 @@ document.addEventListener("DOMContentLoaded", () => {
     scanModal.style.display = "block";
     try {
       await startCamera("scanCamera");
+      alert("Camera started successfully");
     } catch (error) {
       console.error("Camera error:", error);
     }
   });
 
-  registerButton.addEventListener("click", async () => {
-    registerModal.style.display = "block";
-    try {
-      await startCamera("registerCamera");
-    } catch (error) {
-      console.error("Camera error:", error);
-    }
-  });
+  // registerButton.addEventListener("click", async () => {
+  //   registerModal.style.display = "block";
+  //   try {
+  //     await startCamera("registerCamera");
+  //   } catch (error) {
+  //     console.error("Camera error:", error);
+  //   }
+  // });
 
-  captureButton.addEventListener("click", registerImage);
+  // captureButton.addEventListener("click", registerImage);
+
   scanCaptureButton.addEventListener("click", () => {
+    alert("Scan capture button clicked");
     if (!isScanning) {
       scanImage();
     }

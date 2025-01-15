@@ -205,65 +205,63 @@
             </div>
           </div>
         </div>
-
-        <!-- Scan Modal -->
-        <div id="scanModal" class="modal">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2><i class="fas fa-camera"></i> Scan Image</h2>
-              <button class="close-btn close">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="camera-container">
-                <div id="scanCamera"></div>
-                <div class="camera-overlay">
-                  <div class="face-guide"></div>
-                </div>
-              </div>
-              <button
-                id="scanCaptureButton"
-                class="btn btn-secondary btn-large"
-              >
-                <i class="fas fa-camera"></i>
-                Take Photo
-              </button>
-              <div id="scanResult" class="result-container"></div>
-            </div>
-          </div>
-        </div>
       </main>
     </div>
+
+    <!-- Scan Modal -->
+    <div id="scanModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-camera"></i> Scan Image</h2>
+          <button class="close-btn close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="camera-container">
+            <div id="scanCamera"></div>
+            <div class="camera-overlay">
+              <div class="face-guide"></div>
+            </div>
+          </div>
+          <button id="scanCaptureButton" class="btn btn-secondary btn-large">
+            <i class="fas fa-camera"></i>
+            Take Photo
+          </button>
+          <div id="scanResult" class="result-container"></div>
+        </div>
+      </div>
+    </div>
+
     <script>
-      document.addEventListener("contextmenu", (event) =>
-        event.preventDefault()
-      );
-      document.onkeydown = function (e) {
-        if (e.keyCode == 123) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0))
-          return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0))
-          return false;
-        if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) return false;
-      };
+      // document.addEventListener("contextmenu", (event) =>
+      //   event.preventDefault()
+      // );
+      // document.onkeydown = function (e) {
+      //   if (e.keyCode == 123) return false;
+      //   if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0))
+      //     return false;
+      //   if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0))
+      //     return false;
+      //   if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) return false;
+      // };
 
-      document.addEventListener("DOMContentLoaded", function () {
-        // Select all progress fill elements
-        const progressBars = document.querySelectorAll(".progress-fill");
+      // document.addEventListener("DOMContentLoaded", function () {
+      //   // Select all progress fill elements
+      //   const progressBars = document.querySelectorAll(".progress-fill");
 
-        // Start animation after a short delay
-        setTimeout(() => {
-          progressBars[0].style.width = "100%";
-          progressBars[1].style.width = "30%";
-          progressBars[2].style.width = "55%";
-          progressBars[3].style.width = "15%";
-          progressBars[4].style.width = "60%";
-          // progressBars.forEach((bar, i) => {
-          //   bar.style.width = "50%";
-          // });
-        }, 1500);
-      });
+      //   // Start animation after a short delay
+      //   setTimeout(() => {
+      //     progressBars[0].style.width = "100%";
+      //     progressBars[1].style.width = "30%";
+      //     progressBars[2].style.width = "55%";
+      //     progressBars[3].style.width = "15%";
+      //     progressBars[4].style.width = "60%";
+      //     // progressBars.forEach((bar, i) => {
+      //     //   bar.style.width = "50%";
+      //     // });
+      //   }, 1500);
+      // });
     </script>
   </body>
 </html>
