@@ -1,244 +1,208 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
-  const scanModal = document.getElementById("scanModal");
-  const registerModal = document.getElementById("registerModal");
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("scanModal");
   const scanButton = document.getElementById("scanButton");
-  const faceGuide = document.getElementById("faceGuide");
-  // const registerButton = document.getElementById("registerButton");
-  // const captureButton = document.getElementById("captureButton");
-  const scanCaptureButton = document.getElementById("scanCaptureButton");
-  const closeButtons = document.querySelectorAll(".close-btn");
-  const imageCountElement = document.getElementById("imageCount");
-  const lastScanElement = document.getElementById("lastScan");
-  const systemStatus = document.getElementById("systemStatus");
+  const closeBtn = document.querySelector(".close-btn");
+  const captureButton = document.getElementById("scanCaptureButton");
+  const scanCamera = document.getElementById("scanCamera");
 
-  // Store registered images
-  let registeredImages = [];
+  // Create video element
+  const video = document.createElement("video");
+  video.setAttribute("playsinline", ""); // required for iOS
+  video.setAttribute("autoplay", "");
 
-  // Add this new variable for tracking scan status
-  let isScanning = false;
+  // Create canvas for capturing images
+  const canvas = document.createElement("canvas");
+  canvas.width = 320;
+  canvas.height = 240;
 
-  // Initialize system status
-  function initializeSystem() {
-    systemStatus.innerHTML = '<i class="fas fa-circle"></i> System Ready';
-    updateImageCount();
-    updateLastScan();
-  }
+  let stream = null;
 
-  // Update image count
-  function updateImageCount() {
-    imageCountElement.textContent = registeredImages.length;
-  }
+  // Add after creating video element
+  const faceApi = document.createElement("script");
+  faceApi.src = "https://cdn.jsdelivr.net/npm/face-api.js";
+  document.head.appendChild(faceApi);
 
-  // Update last scan time
-  function updateLastScan() {
-    if (registeredImages.length > 0) {
-      lastScanElement.textContent = new Date().toLocaleTimeString();
-    }
-  }
+  faceApi.onload = async () => {
+    await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
+    console.log("Face detection model loaded");
+  };
 
-  // Initialize webcam
-  function startCamera(containerId) {
-    return new Promise((resolve, reject) => {
-      Webcam.set({
-        width: "100%",
-        height: "100%",
-        image_format: "jpeg",
-        jpeg_quality: 90,
-        flip_horiz: true,
-        constraints: {
-          width: { ideal: 640 },
-          height: { ideal: 480 },
+  // Start camera
+  async function startCamera() {
+    try {
+      // Show loading spinner while initializing
+      Swal.fire({
+        title: "Starting Camera",
+        text: "Please wait while we initialize the camera...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
         },
       });
 
-      try {
-        Webcam.attach(`#${containerId}`);
-        showResult(
-          "Camera initialized",
-          "success",
-          containerId === "scanCamera" ? "scanResult" : "registerResult"
-        );
-        resolve();
-      } catch (error) {
-        showResult(
-          "Camera error: " + error.message,
-          "error",
-          containerId === "scanCamera" ? "scanResult" : "registerResult"
-        );
-        reject(error);
+      // Load face detection model if not already loaded
+      if (!faceapi.nets.tinyFaceDetector.isLoaded) {
+        await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
       }
-    });
-  }
 
-  // Show result message
-  function showResult(message, type, elementId) {
-    const resultElement = document.getElementById(elementId);
-    resultElement.className = `result-container ${type}`;
-    resultElement.innerHTML = `
-              <div class="result-message">
-                  <i class="fas fa-${
-                    type === "success" ? "check-circle" : "exclamation-circle"
-                  }"></i>
-                  ${message}
-              </div>
-          `;
-    resultElement.style.display = "block";
-  }
-
-  // Register new image
-  function registerImage() {
-    Webcam.snap(function (dataUri) {
-      registeredImages.push({
-        image: dataUri,
-        timestamp: new Date().toISOString(),
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: 320, height: 240 },
+        audio: false,
       });
+      video.srcObject = stream;
+      scanCamera.appendChild(video);
+      video.play();
 
-      showResult("Image registered successfully!", "success", "registerResult");
+      // Close loading spinner
+      Swal.close();
 
-      // Show preview
-      const previewImage = document.createElement("img");
-      previewImage.src = dataUri;
-      previewImage.className = "preview-image";
-      document.getElementById("registerResult").appendChild(previewImage);
-
-      updateImageCount();
-
-      // Close modal after delay
-      setTimeout(() => {
-        registerModal.style.display = "none";
-        Webcam.reset();
-      }, 2000);
-    });
+      console.log("Camera and face detection ready");
+    } catch (err) {
+      console.error("Camera error:", err);
+      Swal.fire({
+        title: "Error",
+        text: "Could not access camera: " + err.message,
+        icon: "error",
+      });
+    }
   }
-  //   Facial Authentication Failed
-  // Please try again later or contact the helpdesk for assistance.
-  // Helpdesk Contact (Zangi): 1090611968
 
-  // Improved scan function
-  function scanImage() {
-    if (registeredImages.length === 0) {
-      showResult(
-        `<b>Facial Authentication Failed</b>,
-          Please try again later or contact the helpdesk for assistance. <br />
-          <b>Helpdesk Contact (Zangi): 1090611968</b>`,
-        "error",
-        "scanResult"
+  // Stop camera
+  function stopCamera() {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      video.srcObject = null;
+      stream = null;
+    }
+    while (scanCamera.firstChild) {
+      scanCamera.removeChild(scanCamera.firstChild);
+    }
+  }
+
+  // Open modal and start camera
+  scanButton.addEventListener("click", function () {
+    modal.style.display = "block";
+    startCamera();
+    document.getElementById("scanCamera").style.display = "block";
+    document.getElementById("capturedImage").style.display = "none";
+    captureButton.innerHTML = '<i class="fas fa-camera"></i> Take Photo';
+  });
+
+  // Close modal and stop camera
+  closeBtn.addEventListener("click", function () {
+    stopCamera();
+    modal.style.display = "none";
+  });
+
+  // Handle photo capture
+  captureButton.addEventListener("click", async function () {
+    if (captureButton.innerHTML.includes("Take Photo")) {
+      // Take photo
+      const context = canvas.getContext("2d");
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL("image/jpeg");
+
+      // Detect faces
+      const detections = await faceapi.detectAllFaces(
+        canvas,
+        new faceapi.TinyFaceDetectorOptions()
       );
-      return;
-    }
 
-    if (isScanning) {
-      showResult("Scan in progress...", "info", "scanResult");
-      return;
-    }
+      if (detections.length > 0) {
+        // Draw green circle for successful face detection
+        const face = detections[0];
+        context.strokeStyle = "#00ff00";
+        context.lineWidth = 2;
+        context.beginPath();
+        const centerX = face.box.x + face.box.width / 2;
+        const centerY = face.box.y + face.box.height / 2;
+        const radius = Math.max(face.box.width, face.box.height) / 2;
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        context.stroke();
 
-    isScanning = true;
-    showResult("Processing scan...", "info", "scanResult");
+        // Update the image with face guide
+        const imageDataWithFace = canvas.toDataURL("image/jpeg");
+        document.getElementById(
+          "capturedImage"
+        ).innerHTML = `<img src="${imageDataWithFace}" alt="Captured photo with face guide"/>`;
 
-    Webcam.snap(function (dataUri) {
-      // Create scan preview
-      const scanPreview = document.createElement("div");
-      scanPreview.className = "scan-preview";
-      scanPreview.innerHTML = `
-                  <div class="scan-result-header">
-                      <h3>Scan Results</h3>
-                      <span class="scan-timestamp">${new Date().toLocaleTimeString()}</span>
-                  </div>
-                  <div class="scan-images">
-                      <div class="scan-image-container">
-                          <h4>Current Scan</h4>
-                          <img src="${dataUri}" class="preview-image" alt="Scanned image">
-                      </div>
-                      <div class="scan-image-container">
-                          <h4>Last Registered Image</h4>
-                          <img src="${
-                            registeredImages[registeredImages.length - 1].image
-                          }" class="preview-image" alt="Registered image">
-                      </div>
-                  </div>
-                  <div class="scan-status success">
-                      <i class="fas fa-check-circle"></i>
-                      Scan completed successfully
-                  </div>
-              `;
+        // Show processing message after 2 seconds
+        setTimeout(() => {
+          Swal.fire({
+            title: "Please wait",
+            text: "Verifying your image",
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+              Swal.showLoading();
+            },
+          });
 
-      const resultContainer = document.getElementById("scanResult");
-      resultContainer.innerHTML = ""; // Clear previous results
-      resultContainer.appendChild(scanPreview);
-      resultContainer.className = "result-container success";
-      resultContainer.style.display = "block";
+          // Show error message after 7 seconds
+          setTimeout(() => {
+            Swal.fire({
+              title: "Facial Authentication Failed",
+              html: "Please try again later or contact the helpdesk for assistance.<br><br><strong>Helpdesk Contact (Zangi): 1090611968</strong>",
+              icon: "error",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "OK",
+            });
+          }, 7000);
+        }, 2000);
 
-      // Update last scan time
-      updateLastScan();
+        document.getElementById("scanCamera").style.display = "none";
+        document.getElementById("capturedImage").style.display = "block";
+        captureButton.innerHTML = '<i class="fas fa-camera"></i> Retake Photo';
+      } else {
+        // Draw red circle for no face detected
+        context.strokeStyle = "#ff0000";
+        context.lineWidth = 2;
+        context.beginPath();
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(canvas.width, canvas.height) / 4;
+        context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        context.stroke();
 
-      // Reset scanning status
-      isScanning = false;
+        // Update the image with red circle
+        const imageDataNoFace = canvas.toDataURL("image/jpeg");
+        document.getElementById(
+          "capturedImage"
+        ).innerHTML = `<img src="${imageDataNoFace}" alt="No face detected"/>`;
+        document.getElementById("scanCamera").style.display = "none";
+        document.getElementById("capturedImage").style.display = "block";
 
-      // Add to scan history (optional)
-      addToScanHistory(dataUri);
-    });
-  }
+        // Wait 2 seconds before showing the alert
+        setTimeout(() => {
+          Swal.fire({
+            title: "No Face Detected!",
+            text: "Please try again.",
+            icon: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            // After alert is closed, show camera again
+            document.getElementById("scanCamera").style.display = "block";
+            document.getElementById("capturedImage").style.display = "none";
+          });
+        }, 2000);
 
-  // Add this new function for scan history
-  function addToScanHistory(scanImage) {
-    const scanHistory = JSON.parse(localStorage.getItem("scanHistory") || "[]");
-    scanHistory.push({
-      timestamp: new Date().toISOString(),
-      image: scanImage,
-    });
-    localStorage.setItem("scanHistory", JSON.stringify(scanHistory.slice(-10))); // Keep last 10 scans
-  }
-
-  // Event Listeners
-  scanButton.addEventListener("click", async () => {
-    scanModal.style.display = "block";
-    try {
-      await startCamera("scanCamera");
-      // alert("Camera started successfully");
-    } catch (error) {
-      console.error("Camera error:", error);
-    }
-  });
-
-  // registerButton.addEventListener("click", async () => {
-  //   registerModal.style.display = "block";
-  //   try {
-  //     await startCamera("registerCamera");
-  //   } catch (error) {
-  //     console.error("Camera error:", error);
-  //   }
-  // });
-
-  // captureButton.addEventListener("click", registerImage);
-
-  scanCaptureButton.addEventListener("click", () => {
-    // alert("Scan capture button clicked");
-    faceGuide.style.border = "5px solid rgba(5, 151, 17, 0.99)";
-
-    if (!isScanning) {
-      scanImage();
+        return;
+      }
+    } else {
+      // Retake photo
+      document.getElementById("scanCamera").style.display = "block";
+      document.getElementById("capturedImage").style.display = "none";
+      captureButton.innerHTML = '<i class="fas fa-camera"></i> Take Photo';
     }
   });
 
-  // Close modal handlers
-  closeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      scanModal.style.display = "none";
-      registerModal.style.display = "none";
-      Webcam.reset();
-    });
-  });
-
-  // Close on outside click
-  window.addEventListener("click", (event) => {
-    if (event.target === scanModal || event.target === registerModal) {
-      scanModal.style.display = "none";
-      registerModal.style.display = "none";
-      Webcam.reset();
+  // Close modal when clicking outside
+  window.addEventListener("click", function (event) {
+    if (event.target == modal) {
+      stopCamera();
+      modal.style.display = "none";
     }
   });
-
-  // Initialize system
-  initializeSystem();
 });

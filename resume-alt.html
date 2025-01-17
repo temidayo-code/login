@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
     <!-- Custom JS -->
     <script src="camscript.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <div class="resume-wrapper">
@@ -221,15 +222,11 @@
         <div class="modal-body">
           <div class="camera-container">
             <div id="scanCamera"></div>
-            <div class="camera-overlay">
-              <div class="face-guide" id="faceGuide"></div>
-            </div>
+            <div id="capturedImage"></div>
           </div>
           <button id="scanCaptureButton" class="btn btn-secondary btn-large">
-            <i class="fas fa-camera"></i>
-            Take Photo
+            <i class="fas fa-camera"></i> Take Photo
           </button>
-          <div id="scanResult" class="result-container"></div>
         </div>
       </div>
     </div>
@@ -264,5 +261,6 @@
         }, 1500);
       });
     </script> -->
+    <script src="./face-api.min.js"></script>
   </body>
 </html>
