@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scanModal = document.getElementById("scanModal");
   const registerModal = document.getElementById("registerModal");
   const scanButton = document.getElementById("scanButton");
+  const faceGuide = document.getElementById("faceGuide");
   // const registerButton = document.getElementById("registerButton");
   // const captureButton = document.getElementById("captureButton");
   const scanCaptureButton = document.getElementById("scanCaptureButton");
@@ -110,12 +111,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
     });
   }
+  //   Facial Authentication Failed
+  // Please try again later or contact the helpdesk for assistance.
+  // Helpdesk Contact (Zangi): 1090611968
 
   // Improved scan function
   function scanImage() {
     if (registeredImages.length === 0) {
       showResult(
-        "Failed to recognize the face, try again.",
+        `<b>Facial Authentication Failed</b>,
+          Please try again later or contact the helpdesk for assistance. <br />
+          <b>Helpdesk Contact (Zangi): 1090611968</b>`,
         "error",
         "scanResult"
       );
@@ -208,6 +214,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scanCaptureButton.addEventListener("click", () => {
     // alert("Scan capture button clicked");
+    faceGuide.style.border = "5px solid rgba(5, 151, 17, 0.99)";
+
     if (!isScanning) {
       scanImage();
     }
