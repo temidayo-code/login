@@ -48,18 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       });
 
-      // Load face detection model if not already loaded
-      if (!faceapi.nets.tinyFaceDetector.isLoaded) {
-        await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
-      }
-
+      // Request camera with mobile-friendly constraints
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: 320, height: 240 },
+        video: {
+          facingMode: "user", // Use front camera
+          width: { ideal: 320 },
+          height: { ideal: 240 },
+        },
         audio: false,
       });
+
       video.srcObject = stream;
       scanCamera.appendChild(video);
-      video.play();
+
+      // Wait for video to be ready
+      await new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          video.play();
+          resolve();
+        };
+      });
 
       // Close loading spinner
       Swal.close();
@@ -118,10 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Detect faces with adjusted parameters
         const detections = await faceapi.detectAllFaces(
-          canvas,
+          video, // Use video instead of canvas for detection
           new faceapi.TinyFaceDetectorOptions({
-            inputSize: 320, // Adjust this to match your canvas size
-            scoreThreshold: 0.3, // Lower threshold for easier detection
+            inputSize: 320,
+            scoreThreshold: 0.1, // More lenient threshold for mobile
           })
         );
 
